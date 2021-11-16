@@ -121,7 +121,9 @@ class ExampleControllerTest {
 
         val jsonRequestBody = """
             {
-                "unrelated": 1
+                "example": {
+                    "unrelated": 1
+                }
             }
         """.trimIndent()
 
