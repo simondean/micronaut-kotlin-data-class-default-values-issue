@@ -4,10 +4,14 @@ import com.example.models.Example
 import com.example.models.ExampleRequestBody
 import com.example.services.FakeExampleService
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.micronaut.http.HttpRequest.POST
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.jackson.modules.BeanIntrospectionModule
+import io.micronaut.jackson.serialize.ResourceModule
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import javax.inject.Inject
@@ -91,6 +95,33 @@ class ExampleControllerTest {
                 "example": {
                     "unrelated": 1
                 }
+            }
+        """.trimIndent()
+
+        val requestBody = independentObjectMapper.readValue(jsonRequestBody, ExampleRequestBody::class.java)
+
+        assertThat(requestBody.example).isEqualTo(
+            Example(
+                propertyWithDefault = 0,
+                propertyWithoutDefault = null,
+                unrelated = 1
+            )
+        )
+    }
+
+    @Test
+    fun dataClassDefaultValuesShouldBeUsedByAnIndependentObjectMapper2() {
+
+        val independentObjectMapper = ObjectMapper()
+            .registerModule(Jdk8Module())
+            .registerModule(JavaTimeModule())
+            .registerModule(KotlinModule())
+            .registerModule(BeanIntrospectionModule())
+            .registerModule(ResourceModule())
+
+        val jsonRequestBody = """
+            {
+                "unrelated": 1
             }
         """.trimIndent()
 
