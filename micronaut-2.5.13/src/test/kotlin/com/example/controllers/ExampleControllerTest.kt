@@ -1,15 +1,18 @@
 package com.example.controllers
 
 import com.example.models.Example
+import com.example.models.ExampleRequestBody
 import com.example.services.FakeExampleService
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.micronaut.http.HttpRequest.POST
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import javax.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
 
 @MicronautTest
 class ExampleControllerTest {
@@ -21,16 +24,18 @@ class ExampleControllerTest {
     @Inject
     @field:Client("/")
     lateinit var client: HttpClient
+    @Inject
+    lateinit var micronautObjectMapper: ObjectMapper
 
     @MockBean(FakeExampleService::class)
     fun exampleService() = FakeExampleService()
 
     @Test
-    fun dataClassDefaultValuesShouldBeIgnoredForRequestBodyDeserialisation() {
+    fun dataClassDefaultValuesShouldBeUsedForRequestBodyDeserialisation() {
 
         val jsonRequestBody = """
             {
-                "example": {                
+                "example": {
                     "unrelated": 1
                 }
             }
@@ -46,12 +51,58 @@ class ExampleControllerTest {
         val examples = fakeExampleService.examples
         assertThat(examples).containsExactly(
             Example(
-                propertyWithDefault = null,
+                propertyWithDefault = 0,
                 propertyWithoutDefault = null,
                 unrelated = 1
             )
         )
     }
 
+    @Test
+    fun dataClassDefaultValuesShouldBeUsedByMicronautObjectMapper() {
+
+        val jsonRequestBody = """
+            {
+                "example": {
+                    "unrelated": 1
+                }
+            }
+        """.trimIndent()
+
+        val requestBody = micronautObjectMapper.readValue(jsonRequestBody, ExampleRequestBody::class.java)
+
+        assertThat(requestBody.example).isEqualTo(
+            Example(
+                propertyWithDefault = 0,
+                propertyWithoutDefault = null,
+                unrelated = 1
+            )
+        )
+    }
+
+    @Test
+    fun dataClassDefaultValuesShouldBeUsedByAnIndependentObjectMapper() {
+
+        val independentObjectMapper = ObjectMapper()
+            .registerModule(KotlinModule())
+
+        val jsonRequestBody = """
+            {
+                "example": {
+                    "unrelated": 1
+                }
+            }
+        """.trimIndent()
+
+        val requestBody = independentObjectMapper.readValue(jsonRequestBody, ExampleRequestBody::class.java)
+
+        assertThat(requestBody.example).isEqualTo(
+            Example(
+                propertyWithDefault = 0,
+                propertyWithoutDefault = null,
+                unrelated = 1
+            )
+        )
+    }
 
 }
