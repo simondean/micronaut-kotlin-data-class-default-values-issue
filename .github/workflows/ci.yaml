@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         micronaut: ['2.4.4', '2.5.13', '3.0.3', '3.1.4']
 
