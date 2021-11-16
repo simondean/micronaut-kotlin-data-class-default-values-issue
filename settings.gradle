@@ -1,2 +1,7 @@
 
 rootProject.name="micronaut-kotlin-data-class-default-values-issue"
+
+include "micronaut-2.4.4"
+include "micronaut-2.5.13"
+include "micronaut-3.0.3"
+include "micronaut-3.1.4"
