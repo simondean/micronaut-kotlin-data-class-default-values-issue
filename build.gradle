@@ -22,6 +22,8 @@ micronaut {
     }
 }
 
+def parsedMicronautVersion = VersionNumber.parse(micronautVersion)
+
 dependencies {
     if (parsedMicronautVersion >= VersionNumber.parse('3.0.0')) {
         kapt("io.micronaut:micronaut-http-validation")
