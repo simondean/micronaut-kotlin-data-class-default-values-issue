@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test
 class ExampleControllerTest {
 
     @Inject
-    lateinit var exampleController: ExampleController
-    @Inject
     lateinit var fakeExampleService: FakeExampleService
     @Inject
     @field:Client("/")
