@@ -1,6 +1,6 @@
 package com.example.controllers
 
-import com.example.models.ExampleRequestBody
+import com.example.models.Example
 import com.example.services.ExampleService
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
@@ -15,9 +15,9 @@ class ExampleController(
 
     @Post
     suspend fun createExample(
-        @Body body: ExampleRequestBody
+        @Body body: Example
     ): HttpStatus = coroutineScope {
-        exampleService.save(body.example)
+        exampleService.save(body)
         HttpStatus.CREATED
     }
 

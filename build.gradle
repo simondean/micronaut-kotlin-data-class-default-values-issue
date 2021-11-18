@@ -68,3 +68,9 @@ tasks {
 
 
 }
+
+test {
+    environment "MICRONAUT_VERSION", micronautVersion
+
+    testLogging.showStandardStreams = true
+}

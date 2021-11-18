@@ -1,7 +1,6 @@
 package com.example.controllers
 
 import com.example.models.Example
-import com.example.models.ExampleRequestBody
 import com.example.services.FakeExampleService
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
@@ -16,10 +15,14 @@ import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import javax.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Test
 
 @MicronautTest
 class ExampleControllerTest {
+
+    val micronautVersion = System.getenv("MICRONAUT_VERSION")
+    val micronautMajorVersion = micronautVersion.substringBefore(".").toInt()
 
     @Inject
     lateinit var fakeExampleService: FakeExampleService
@@ -37,9 +40,7 @@ class ExampleControllerTest {
 
         val jsonRequestBody = """
             {
-                "example": {
-                    "propertyWithNullDefault": null
-                }
+                "propertyWithNullDefault": null
             }
         """.trimIndent()
 
@@ -51,12 +52,20 @@ class ExampleControllerTest {
         assertThat(response.code()).isEqualTo(201)
 
         val examples = fakeExampleService.examples
-        assertThat(examples).containsExactly(
-            Example(
+        assertThat(examples).hasSize(1)
+        val example = examples[0]
+
+        assertThat(example).isEqualTo(when (micronautMajorVersion) {
+            2 -> Example(
                 propertyWithNonNullDefault = null,
                 propertyWithNullDefault = null
             )
-        )
+            3 -> Example(
+                propertyWithNonNullDefault = 0,
+                propertyWithNullDefault = null
+            )
+            else -> fail("Unexpected Micronaut major version $micronautVersion")
+        })
     }
 
     @Test
@@ -64,20 +73,23 @@ class ExampleControllerTest {
 
         val jsonRequestBody = """
             {
-                "example": {
-                    "propertyWithNullDefault": null
-                }
+                "propertyWithNullDefault": null
             }
         """.trimIndent()
 
-        val requestBody = micronautObjectMapper.readValue(jsonRequestBody, ExampleRequestBody::class.java)
+        val example = micronautObjectMapper.readValue(jsonRequestBody, Example::class.java)
 
-        assertThat(requestBody.example).isEqualTo(
-            Example(
+        assertThat(example).isEqualTo(when (micronautMajorVersion) {
+            2 -> Example(
                 propertyWithNonNullDefault = null,
                 propertyWithNullDefault = null
             )
-        )
+            3 -> Example(
+                propertyWithNonNullDefault = 0,
+                propertyWithNullDefault = null
+            )
+            else -> fail("Unexpected Micronaut major version $micronautVersion")
+        })
     }
 
     @Test
@@ -88,20 +100,23 @@ class ExampleControllerTest {
 
         val jsonRequestBody = """
             {
-                "example": {
-                    "propertyWithNullDefault": null
-                }
+                "propertyWithNullDefault": null
             }
         """.trimIndent()
 
-        val requestBody = independentObjectMapper.readValue(jsonRequestBody, ExampleRequestBody::class.java)
+        val example = independentObjectMapper.readValue(jsonRequestBody, Example::class.java)
 
-        assertThat(requestBody.example).isEqualTo(
-            Example(
+        assertThat(example).isEqualTo(when (micronautMajorVersion) {
+            2 -> Example(
                 propertyWithNonNullDefault = 0,
                 propertyWithNullDefault = null
             )
-        )
+            3 -> Example(
+                propertyWithNonNullDefault = 0,
+                propertyWithNullDefault = null
+            )
+            else -> fail("Unexpected Micronaut major version $micronautVersion")
+        })
     }
 
     @Test
@@ -116,20 +131,23 @@ class ExampleControllerTest {
 
         val jsonRequestBody = """
             {
-                "example": {
-                    "propertyWithNullDefault": null
-                }
+                "propertyWithNullDefault": null
             }
         """.trimIndent()
 
-        val requestBody = independentObjectMapper.readValue(jsonRequestBody, ExampleRequestBody::class.java)
+        val example = independentObjectMapper.readValue(jsonRequestBody, Example::class.java)
 
-        assertThat(requestBody.example).isEqualTo(
-            Example(
+        assertThat(example).isEqualTo(when (micronautMajorVersion) {
+            2 -> Example(
                 propertyWithNonNullDefault = null,
                 propertyWithNullDefault = null
             )
-        )
+            3 -> Example(
+                propertyWithNonNullDefault = 0,
+                propertyWithNullDefault = null
+            )
+            else -> fail("Unexpected Micronaut major version $micronautVersion")
+        })
     }
 
 }
