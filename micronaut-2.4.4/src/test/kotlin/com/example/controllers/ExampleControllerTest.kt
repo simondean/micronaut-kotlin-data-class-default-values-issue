@@ -38,7 +38,7 @@ class ExampleControllerTest {
         val jsonRequestBody = """
             {
                 "example": {
-                    "unrelated": 1
+                    "propertyWithNullDefault": null
                 }
             }
         """.trimIndent()
@@ -53,9 +53,8 @@ class ExampleControllerTest {
         val examples = fakeExampleService.examples
         assertThat(examples).containsExactly(
             Example(
-                propertyWithDefault = 0,
-                propertyWithoutDefault = null,
-                unrelated = 1
+                propertyWithNonNullDefault = null,
+                propertyWithNullDefault = null
             )
         )
     }
@@ -66,7 +65,7 @@ class ExampleControllerTest {
         val jsonRequestBody = """
             {
                 "example": {
-                    "unrelated": 1
+                    "propertyWithNullDefault": null
                 }
             }
         """.trimIndent()
@@ -75,15 +74,14 @@ class ExampleControllerTest {
 
         assertThat(requestBody.example).isEqualTo(
             Example(
-                propertyWithDefault = 0,
-                propertyWithoutDefault = null,
-                unrelated = 1
+                propertyWithNonNullDefault = null,
+                propertyWithNullDefault = null
             )
         )
     }
 
     @Test
-    fun dataClassDefaultValuesShouldBeUsedByAnIndependentObjectMapper() {
+    fun dataClassDefaultValuesShouldBeUsedByAnIndependentObjectMapperUsingOnlyKotlinModule() {
 
         val independentObjectMapper = ObjectMapper()
             .registerModule(KotlinModule())
@@ -91,7 +89,7 @@ class ExampleControllerTest {
         val jsonRequestBody = """
             {
                 "example": {
-                    "unrelated": 1
+                    "propertyWithNullDefault": null
                 }
             }
         """.trimIndent()
@@ -100,15 +98,14 @@ class ExampleControllerTest {
 
         assertThat(requestBody.example).isEqualTo(
             Example(
-                propertyWithDefault = 0,
-                propertyWithoutDefault = null,
-                unrelated = 1
+                propertyWithNonNullDefault = null,
+                propertyWithNullDefault = null
             )
         )
     }
 
     @Test
-    fun dataClassDefaultValuesShouldBeUsedByAnIndependentObjectMapper2() {
+    fun dataClassDefaultValuesShouldNotBeUsedByAnIndependentObjectMapperUsingMicronautModules() {
 
         val independentObjectMapper = ObjectMapper()
             .registerModule(Jdk8Module())
@@ -120,7 +117,7 @@ class ExampleControllerTest {
         val jsonRequestBody = """
             {
                 "example": {
-                    "unrelated": 1
+                    "propertyWithNullDefault": null
                 }
             }
         """.trimIndent()
@@ -129,9 +126,8 @@ class ExampleControllerTest {
 
         assertThat(requestBody.example).isEqualTo(
             Example(
-                propertyWithDefault = 0,
-                propertyWithoutDefault = null,
-                unrelated = 1
+                propertyWithNonNullDefault = 0,
+                propertyWithNullDefault = null
             )
         )
     }
