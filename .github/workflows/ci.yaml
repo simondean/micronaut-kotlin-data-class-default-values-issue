@@ -34,7 +34,8 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
 
       - name: Build 🏗
-        run: ./gradlew micronaut-${{ matrix.micronaut }}:build
+        run: ../gradlew build
+        working-directory: micronaut-${{ matrix.micronaut }}
 
       - name: Archive test reports 🗄️
         uses: actions/upload-artifact@v2
