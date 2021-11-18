@@ -98,7 +98,7 @@ class ExampleControllerTest {
 
         assertThat(requestBody.example).isEqualTo(
             Example(
-                propertyWithNonNullDefault = null,
+                propertyWithNonNullDefault = 0,
                 propertyWithNullDefault = null
             )
         )
@@ -126,7 +126,7 @@ class ExampleControllerTest {
 
         assertThat(requestBody.example).isEqualTo(
             Example(
-                propertyWithNonNullDefault = 0,
+                propertyWithNonNullDefault = null,
                 propertyWithNullDefault = null
             )
         )
