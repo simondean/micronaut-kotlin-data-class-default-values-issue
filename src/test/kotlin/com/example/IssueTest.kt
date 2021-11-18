@@ -73,7 +73,7 @@ class IssueTest {
             2 -> 
                 IntrospectedDataClassConstructorPropertiesAllWithDefaults(
                     propertyWithNullDefault = 99,
-                    propertyWithNonNullDefault = 0
+                    propertyWithNonNullDefault = null
                 )
             3 ->
                 IntrospectedDataClassConstructorPropertiesAllWithDefaults(
@@ -168,7 +168,7 @@ class IssueTest {
             2 -> 
                 IntrospectedDataClassConstructorPropertiesAllWithDefaults(
                     propertyWithNullDefault = 99,
-                    propertyWithNonNullDefault = 0
+                    propertyWithNonNullDefault = null
                 )
             3 ->
                 IntrospectedDataClassConstructorPropertiesAllWithDefaults(
@@ -223,7 +223,7 @@ class IssueTest {
             2 -> 
                 IntrospectedDataClassConstructorPropertiesAllWithDefaults(
                     propertyWithNullDefault = 99,
-                    propertyWithNonNullDefault = 0
+                    propertyWithNonNullDefault = null
                 )
             3 ->
                 IntrospectedDataClassConstructorPropertiesAllWithDefaults(
