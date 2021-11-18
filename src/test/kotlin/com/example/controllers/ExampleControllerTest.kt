@@ -14,7 +14,7 @@ import io.micronaut.jackson.modules.BeanIntrospectionModule
 import io.micronaut.jackson.serialize.ResourceModule
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
-import jakarta.inject.Inject
+import javax.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
