@@ -57,23 +57,29 @@ class IssueTest {
 
         val example = micronautObjectMapper.readValue(jsonRequestBody, Example::class.java)
 
-        assertThat(example.noneWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNoDefault2 = null
-        ))
-        assertThat(example.someWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNonNullDefault = null
-        ))
+        assertThat(example.noneWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNoDefault2 = null
+            )
+        )
+        assertThat(example.someWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNonNullDefault = null
+            )
+        )
         assertThat(example.allWithDefaults).isEqualTo(when (micronautMajorVersion) {
-            2 -> IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-                propertyWithNullDefault = 99,
-                propertyWithNonNullDefault = 0
-            )
-            3 -> IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-                propertyWithNullDefault = 99,
-                propertyWithNonNullDefault = 0
-            )
+            2 -> 
+                IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                    propertyWithNullDefault = 99,
+                    propertyWithNonNullDefault = 0
+                )
+            3 ->
+                IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                    propertyWithNullDefault = 99,
+                    propertyWithNonNullDefault = 0
+                )
             else -> fail("Unexpected Micronaut major version $micronautVersion")
         })
     }
@@ -100,18 +106,24 @@ class IssueTest {
 
         val example = independentObjectMapper.readValue(jsonRequestBody, Example::class.java)
 
-        assertThat(example.noneWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNoDefault2 = null
-        ))
-        assertThat(example.someWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNonNullDefault = 0
-        ))
-        assertThat(example.allWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-            propertyWithNullDefault = 99,
-            propertyWithNonNullDefault = 0
-        ))
+        assertThat(example.noneWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNoDefault2 = null
+            )
+        )
+        assertThat(example.someWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNonNullDefault = 0
+            )
+        )
+        assertThat(example.allWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                propertyWithNullDefault = 99,
+                propertyWithNonNullDefault = 0
+            )
+        )
     }
 
     @Test
@@ -140,23 +152,29 @@ class IssueTest {
 
         val example = independentObjectMapper.readValue(jsonRequestBody, Example::class.java)
 
-        assertThat(example.noneWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNoDefault2 = null
-        ))
-        assertThat(example.someWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNonNullDefault = null
-        ))
+        assertThat(example.noneWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNoDefault2 = null
+            )
+        )
+        assertThat(example.someWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNonNullDefault = null
+            )
+        )
         assertThat(example.allWithDefaults).isEqualTo(when (micronautMajorVersion) {
-            2 -> IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-                propertyWithNullDefault = 99,
-                propertyWithNonNullDefault = 0
-            )
-            3 -> IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-                propertyWithNullDefault = 99,
-                propertyWithNonNullDefault = 0
-            )
+            2 -> 
+                IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                    propertyWithNullDefault = 99,
+                    propertyWithNonNullDefault = 0
+                )
+            3 ->
+                IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                    propertyWithNullDefault = 99,
+                    propertyWithNonNullDefault = 0
+                )
             else -> fail("Unexpected Micronaut major version $micronautVersion")
         })
     }
@@ -189,23 +207,29 @@ class IssueTest {
         assertThat(examples).hasSize(1)
         val example = examples[0]
 
-        assertThat(example.noneWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNoDefault2 = null
-        ))
-        assertThat(example.someWithDefaults).isEqualTo(IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
-            propertyWithNoDefault = 99,
-            propertyWithNonNullDefault = null
-        ))
+        assertThat(example.noneWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesNoneWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNoDefault2 = null
+            )
+        )
+        assertThat(example.someWithDefaults).isEqualTo(
+            IntrospectedDataClassConstructorPropertiesSomeWithDefaults(
+                propertyWithNoDefault = 99,
+                propertyWithNonNullDefault = null
+            )
+        )
         assertThat(example.allWithDefaults).isEqualTo(when (micronautMajorVersion) {
-            2 -> IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-                propertyWithNullDefault = 99,
-                propertyWithNonNullDefault = 0
-            )
-            3 -> IntrospectedDataClassConstructorPropertiesAllWithDefaults(
-                propertyWithNullDefault = 99,
-                propertyWithNonNullDefault = 0
-            )
+            2 -> 
+                IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                    propertyWithNullDefault = 99,
+                    propertyWithNonNullDefault = 0
+                )
+            3 ->
+                IntrospectedDataClassConstructorPropertiesAllWithDefaults(
+                    propertyWithNullDefault = 99,
+                    propertyWithNonNullDefault = 0
+                )
             else -> fail("Unexpected Micronaut major version $micronautVersion")
         })
     }
